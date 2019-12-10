@@ -15,6 +15,7 @@ Class Router extends Requests{
 		parent::__construct();
 		
 		$urlSegment = explode("/", $this->url);
+		$urlSegment = rtrim(str)
 		$urlSegment = array_slice($urlSegment, 1); 
 		
 		$this->controllerSegment = (isset($urlSegment[0])?$urlSegment[0]:'');
