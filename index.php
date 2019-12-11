@@ -1,3 +1,5 @@
 <?php
-	require_once __DIR__.'/public/index.php';
+
+require 'public/index.php';
+
 ?>
