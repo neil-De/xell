@@ -9,8 +9,10 @@ Class Index extends Controller {
 
 		echo "This index";
 
-		$this->view->title = 'TESTTTTT';
-		$this->view->render('index');
+		$this->make->title = 'TESTTTTT';
+		$this->view->render( 'index' );
+		// View::render('index');
+
 	}
 
 

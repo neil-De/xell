@@ -10,7 +10,7 @@ Class About extends Controller {
 		
 	}
 
-	public function team($arg = false) {
+	public function team( $arg = false ) {
 		echo 'working with the team <br>';
 		echo 'Team Member: ' . $arg; 
 	}

@@ -4,9 +4,9 @@ Class Bootstrap {
 
 	public function __construct() {
 
-		$url = (isset($_GET['url'])) ? $_GET['url'] : 'index';
-		$url = rtrim($url, '/');
-		$url = explode("/", $url);
+		// $url = (isset($_GET['url'])) ? $_GET['url'] : 'index';
+		// $url = rtrim($url, '/');
+		// $url = explode("/", $url);
 		// $url_segment = array_slice($url_segment, 1); // This remove the first segment "0";
 		// print_r($url_segment);
 
@@ -15,22 +15,22 @@ Class Bootstrap {
 		// $paramater_segment = (isset($url_segment[2])?$url_segment[2]:'');
 
 		// This file if exists 
-		$file = 'application/controller/' . $url[0] . '.php';
-		if( file_exists($file) ) {
-			require $file;
-		} else {
-			echo "The file: $url[0].php does not exists";
-		}
+		// $file = 'application/controller/' . $url[0] . '.php';
+		// if( file_exists($file) ) {
+		// 	require $file;
+		// } else {
+		// 	echo "The file: $url[0].php does not exists";
+		// }
 
-		$controller = new $url[0];
+		// $controller = new $url[0];
 
-		if( isset($url[2]) ) {
-			$controller->{ $url[1] }( $url[2] );
-		} else {
-			if( isset($url[1]) ) {
-				$controller->{ $url[1] }();
-			}
-		}
+		// if( isset($url[2]) ) {
+		// 	$controller->{ $url[1] }( $url[2] );
+		// } else {
+		// 	if( isset($url[1]) ) {
+		// 		$controller->{ $url[1] }();
+		// 	}
+		// }
 
 		// if( isset($route->controller_segment) && class_exists($controller_name) ) {
 		// $controller = new $controller_name;
@@ -42,6 +42,25 @@ Class Bootstrap {
 		// 		}
 		// 	}
 		// }		
+	}
+
+
+	public function getRoute() {
+
+		global $Routes;
+
+		$uri = $_SERVER['REQUEST_URI'];
+
+		//Check if the route is in $Routes
+		if( !in_array( explode( '?', $uri )[0], $Routes ) ) {
+			die( 'Invalide route.' );
+		}
+	}
+
+	public function run() {
+
+		$this->getRoute();
+
 	}
 
 }
