@@ -2,6 +2,7 @@
 
 define( 'BASEDIR', '/' );
 define( 'CORE', './core/' );
+define( 'APP_NAME',array_slice(explode("/",dirname(__DIR__)), -1)[0]);
 
 // The array 'Routes' stores all of the valid routes, you can add
 // new routes by editing the file 'application/route.php'.
@@ -17,7 +18,7 @@ require_once( './application/routes.php' );
 // This is alternative for autoloader in composer
 // Since this is a deprecated class, please use below
 function __autoload($class_name) {
-	require_once './core/' . $class_name . '.php';
+	require_once './core/' . strtolower($class_name) . '.php';
 }
 
 $app = new Bootstrap();

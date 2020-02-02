@@ -7,8 +7,10 @@ class Route {
 	 * against the global $Routes array.
 	*/
 	public static function isRouteValid() {
+		
 		global $Routes;
-		$uri = $_SERVER['REQUEST_URI'];
+		
+		$uri = Self::resolveRequestUri();
 
 		if ( !in_array( explode( '?', $uri )[0], $Routes ) ) {
 			return 0;
@@ -50,16 +52,30 @@ class Route {
 	public static function set( $route, $closure ) {
 
 		$_GET['url'] = ( isset($_GET['url']) ) ? $_GET['url'] : 'index';
+		$uri = Self::resolveRequestUri();
 
-		if ( $_SERVER['REQUEST_URI'] == BASEDIR . $route ) {
+		
+		if ( $uri == BASEDIR . $route ) { 
 			self::registerRoute( $route );
 			$closure->__invoke();
-		} else if ( explode( '?', $_SERVER['REQUEST_URI'] )[0] == BASEDIR . $route ) {
+		} else if ( explode( '?', $uri )[0] == BASEDIR . $route ) {
 			self::registerRoute( $route );
 			$closure->__invoke();
 		} else if ( $_GET['url'] == explode( '/', $route)[0] ) {
 			self::registerRoute( self::dyn( $route ) );
 			$closure->__invoke();
 		}
+	}
+
+	//Remove application name to url (issue on xampp).
+	public function resolveRequestUri() {
+		
+		$uri = $_SERVER['REQUEST_URI'];
+
+		if( strpos( $uri , APP_NAME ) ){
+			$uri = str_replace('/'.APP_NAME,'',$uri);			
+		}
+
+		return $uri;
 	}
 }

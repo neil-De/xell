@@ -48,8 +48,8 @@ Class Bootstrap {
 	public function getRoute() {
 
 		global $Routes;
-
-		$uri = $_SERVER['REQUEST_URI'];
+		
+		$uri = Route::resolveRequestUri();
 
 		//Check if the route is in $Routes
 		if( !in_array( explode( '?', $uri )[0], $Routes ) ) {
